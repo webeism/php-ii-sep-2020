@@ -1,5 +1,8 @@
 # PHP II -- Class Notes -- Sep 2020
 
+## Homework
+* For Weds 16 Sep 2020
+  * Lab: Namespace
 ## TODO
 * Add notes on updating phpMyAdmin for PHP 7.4.8
   * Update list from `apt` sources:
