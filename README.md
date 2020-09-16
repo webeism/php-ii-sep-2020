@@ -1,7 +1,11 @@
 # PHP II -- Class Notes -- Sep 2020
 
 ## Homework
-* For Weds 16 Sep 2020
+* For Fri 18 Sep 2020
+  * Lab: Create a Class
+  * Lab: Create an Extensible Super Class
+  * Lab: Magic Methods
+* For Wed 16 Sep 2020
   * Lab: Namespace
 ## TODO
 * Add notes on updating phpMyAdmin for PHP 7.4.8
@@ -17,6 +21,63 @@ sudo apt upgrade -y
   * Upgrade from the command line (takes an hour or so)
 
 ## OOP
+### Magic Methods
+* Infinite Getters and Setters
+```
+<?php
+class User
+{
+	protected $first;
+	protected $last;
+	protected $address;
+	protected $city;
+	protected $province;
+	protected $country;
+	protected $postalCode;
+	public function __call($method, $params = [])
+	{
+		// this assumes the get methods all map to defined props
+		if (strpos($method, 'get') === 0) {
+			$prop = substr($method, 3);
+			$prop[0] = strtolower($prop[0]);
+			return $this->$prop ?? NULL;
+		} elseif (strpos($method, 'set') === 0) {
+			$prop = substr($method, 3);
+			$prop[0] = strtolower($prop[0]);
+			$this->$prop = $params[0];
+		} else {
+			return NULL;
+		}
+	}
+}
+$test = new User();
+$test->setFirst('Fred');
+$test->setLast('Flintstone');
+echo $test->getFirst() . ' ' . $test->getLast();
+$test->setWhatever('Whatever');
+```
+* Infinite properties
+```
+<?php
+class Test
+{
+	protected $vals = [];
+	public function __set($key, $value)
+	{
+		error_log(__METHOD__);
+		$this->vals[$key] = $value;
+	}
+	public function __get($key)
+	{
+		error_log(__METHOD__);
+		return $this->vals[$key] ?? NULL;
+	}
+}
+$test = new Test();
+$test->first = 'Fred';
+$test->last  = 'Flintstone';
+echo $test->first . ' ' . $test->last;
+```
 
 ### Namespaces
 * Example of putting all in one file:
