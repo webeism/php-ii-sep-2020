@@ -1,6 +1,11 @@
 # PHP II -- Class Notes -- Sep 2020
 
 ## Homework
+* For Mon 21 Sep 2020
+  * Lab: Abstract Classes
+  * Lab: Interfaces
+	* Examples from the Laminas framework: https://github.com/laminas/laminas-db/tree/master/src/Adapter
+  * Lab: Type Hinting
 * For Fri 18 Sep 2020
   * Lab: Create a Class
   * Lab: Create an Extensible Super Class
