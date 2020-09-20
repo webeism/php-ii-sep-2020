@@ -4,13 +4,12 @@
  * Serviced site sub class - we need enhanced monitoring for these sites
  */
 
-namespace DashApp;
+namespace DashApp\Sites;
 
 class ServicedSite extends Site{
 
     public $intPlugins = 0;
     public $servicePlan = "";
-
 
     // magic function 
     public function __construct( $id = 1 ){
@@ -21,6 +20,12 @@ class ServicedSite extends Site{
         $this->servicePlan = "entry";
     }
 
-
+    public function getSiteServices(){
+        return array(
+            "GTMetrix",
+            "Builtwith",
+            "Sucuri"
+        );
+    }
 
 }

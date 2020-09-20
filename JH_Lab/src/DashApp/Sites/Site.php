@@ -4,9 +4,9 @@
  * Main Site (Super)class - dashboard to feature all our sites
  */
 
-namespace DashApp;
+namespace DashApp\Sites;
 
-class Site{
+abstract class Site implements \DashApp\Core\FlySite{
 
     public const TABLE = 'sites';
     protected $id;
@@ -27,9 +27,7 @@ class Site{
 
     // magic function 
     public function __toString(){
-        $str = "func: " . __FUNCTION__ . "<br />";
-        $str .= '<pre>' . print_r( $this, true) . '</pre>';
-        return $str;
+        return '<pre>' . print_r( $this, true ) . '</pre>';
     }
 
     // magic function for getters / setters
@@ -57,8 +55,27 @@ class Site{
 
     public function __invoke( $param = "" ){
         //return "Your param was: " . $param ?? "not submitted";
-        return "INVOKE... Your param was: " . ( $param ? $param : "not requested" );
+        return "INVOKE... Your param was: " . ( $param ? '<pre>' . print_r( $param, true ) . '</pre>' : "not requested" );
+    }
 
+
+    /**
+     * getSiteServices get the set of services site is currently enroled for
+     */
+    public abstract function getSiteServices();
+
+
+    function getFlyIndex(){
+        return 85;
+    }
+    
+    public function getPlugins(){
+        return array(
+            "p1",
+            "p2",
+            "p3",
+            "p4",
+        );
     }
 
 }
