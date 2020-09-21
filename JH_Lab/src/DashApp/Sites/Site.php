@@ -53,6 +53,9 @@ abstract class Site implements \DashApp\Core\FlySite{
         }
     }
 
+    /**
+     * __invoke to allow the class to be called as a function
+     */
     public function __invoke( $param = "" ){
         //return "Your param was: " . $param ?? "not submitted";
         return "INVOKE... Your param was: " . ( $param ? '<pre>' . print_r( $param, true ) . '</pre>' : "not requested" );
@@ -64,11 +67,16 @@ abstract class Site implements \DashApp\Core\FlySite{
      */
     public abstract function getSiteServices();
 
-
+    /**
+     * getFlyIndex required as this is a flySite implementation
+     */
     function getFlyIndex(){
         return 85;
     }
     
+    /**
+     * getFlyIndex required as this is a flySite implementation
+     */    
     public function getPlugins(){
         return array(
             "p1",
@@ -79,6 +87,3 @@ abstract class Site implements \DashApp\Core\FlySite{
     }
 
 }
-
-//$blah = new Site(1);
-//var_dump($blah);
