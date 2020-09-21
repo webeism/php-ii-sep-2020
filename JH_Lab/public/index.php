@@ -63,22 +63,22 @@ $serviced_site = new ServicedSite(1);
 $site->setName("Some Site Name");
 
 // call a method
-echo "<h3>Site Name (from \$site->getName): </h3>";
+echo "<h3>Session 2: Site Name (from \$site->getName): </h3>";
 echo $site->getName();
 
-echo "<h3>Site Name (from \$serviced_site->getName): </h3>";
+echo "<h3>Session 2: Site Name (from \$serviced_site->getName): </h3>";
 echo $serviced_site->getName();
 
 // string output magic method
-echo "<h3>Object as a string (from echo \$site): </h3>";
+echo "<h3>Session 2: Object as a string (from echo \$site): </h3>";
 echo $site;
 
 // string output magic method
-echo "<h3>Object as a string (from echo \$serviced_site): </h3>";
+echo "<h3>Session 2: Object as a string (from echo \$serviced_site): </h3>";
 echo $serviced_site;
 
 // call object like a function magic method
-echo "<h3>Object as a function (from echo \$site(x) ): </h3>";
+echo "<h3>Session 2: Object as a function (from echo \$site(x) ): </h3>";
 echo $site("x");
 
 /**
@@ -93,13 +93,13 @@ echo $site("x");
  * Lab is complete.
  */
 
-echo "<h3>Concrete subclass of abstract superclass (use DashApp\Core\flySite)</h3>";
+echo "<h3>Session 3: Concrete subclass of abstract superclass (use DashApp\Core\flySite)</h3>";
 
 
 $site = new ServicedSite();
 echo $site;
 
-echo "<h3>abstract method call on subclass result:</h3>";
+echo "<h3>Session 3: abstract method call on subclass result:</h3>";
 echo '<pre>' . print_r( $site->getSiteServices(), true ) . '</pre>';
 
 
@@ -113,14 +113,14 @@ echo '<pre>' . print_r( $site->getSiteServices(), true ) . '</pre>';
  * Lab is completed.
  */
 
-echo "<h3>SuperClass (Site) as a flySite implementation</h3>";
+echo "<h3>Session 3: SuperClass (Site) as a flySite implementation</h3>";
 $site = new ServicedSite();
 echo '<pre>' . print_r( $site, true ) . '</pre>';
 
-echo "<h3>SuperClass (Site) with required method call (getFlyIndex)</h3>";
+echo "<h3>Session 3: SuperClass (Site) with required method call (getFlyIndex)</h3>";
 echo $site->getFlyIndex();
 
-echo "<h3>SuperClass (Site) with required method call (getPlugins)</h3>";
+echo "<h3>Session 3: SuperClass (Site) with required method call (getPlugins)</h3>";
 echo '<pre>' . print_r( $site->getPlugins(), true ) . '</pre>';
 
 
@@ -144,5 +144,5 @@ $site = new ServicedSite();
 use DashApp\Core\Analysis;
 $analysis = new Analysis( $site );
 
-echo "<h3>New class Analysis, constructor type hinted with interface</h3>";
+echo "<h3>Session 3: New class Analysis, constructor type hinted with interface</h3>";
 echo '<pre>' . print_r( $analysis, true ) . '</pre>';
