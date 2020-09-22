@@ -1,6 +1,10 @@
 # PHP II -- Class Notes -- Sep 2020
 
 ## Homework
+* For Wed 23 Sep 2020
+  * Lab: Build Custom Exception Class
+  * Lab: Traits
+  * Have a look through the OrderApp using chapter 3 as a guideline
 * For Mon 21 Sep 2020
   * Lab: Abstract Classes
   * Lab: Interfaces
@@ -26,6 +30,8 @@ sudo apt upgrade -y
   * Upgrade from the command line (takes an hour or so)
 
 ## OOP
+### Polymorphism / Variance, etc.
+* https://wiki.php.net/rfc/covariant-returns-and-contravariant-parameters
 ### Magic Methods
 * Infinite Getters and Setters
 ```
