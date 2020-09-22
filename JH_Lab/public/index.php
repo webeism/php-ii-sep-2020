@@ -46,8 +46,10 @@ define('BASE', realpath(__DIR__ . '/../'));
 
 spl_autoload_register(
   function ($class) {
-    $file = str_replace('\\', '/', $class) . '.php';
-    require BASE . '/src/' . $file;
+    $file = BASE . '/src/' . str_replace('\\', '/', $class) . '.php';
+    if( file_exists( $file ) ){
+    	require $file;	
+    }
   }
 );
 
@@ -146,3 +148,57 @@ $analysis = new Analysis( $site );
 
 echo "<h3>Session 3: New class Analysis, constructor type hinted with interface</h3>";
 echo '<pre>' . print_r( $analysis, true ) . '</pre>';
+
+
+/**
+ * Session 4 | Lab 1
+ * Lab: Build Custom Exception Class
+ * Complete the following:
+ * 1. Create a file and build a custom exception class with a constructor that accepts parameters.
+ * 2. Call the parent Exception constructor.
+ * 3. Add some new functionality in the custom exception constructor.
+ * 4. Add a try/catch/catch/finally block set.
+ * 5. In the try portion, throw an instance of the Exceptions object, and an instance of the custom exception class.
+ * 6. Handle both by logging in the associated catch blocks.
+ * 7. Echo something in the finally block
+ */
+
+echo "<h3>Session 4: Custom exception class:</h3>";
+
+foreach( [ServicedSite::EXCEPTION_FLAG_STANDARD, ServicedSite::EXCEPTION_FLAG_CUSTOM] as $str ){
+	try {
+		// force an exception
+		$site = new ServicedSite( $str );
+	} catch ( DashApp\Core\CustomException $e ) {
+		echo 'CustomException caught:<br /><br />';
+		error_log( "TEST Custom Exception: " . $e->getMessage() );
+		var_dump( $e );
+
+	} catch ( Exception $e ) {
+		error_log( "TEST Standard Exception: " . $e->getMessage() );
+		var_dump( $e );
+
+	} finally {
+		echo 'Finally block output...<br /><br />';
+	}
+}
+
+
+/**
+ * Session 4 | Lab 2
+ * Lab: Traits
+ * Complete the following:
+ * 1. In separate files, create two traits, each with two methods, one of the methods named the same in both traits.
+ * 2. In another file, create a class that uses the two traits.
+ * 3. Resolve the naming collision, and change the method visibilities.
+ * 4. Instantiate an instance of the class and execute the trait methods.
+ * This lab is complete.
+ */
+
+echo "<h3>Session 4: Traits:</h3>";
+$site = new ServicedSite();
+
+echo '<pre>' . print_r( $site, true ) . '</pre>';
+echo 'getTraitType: ' . $site->getTraitType();
+
+

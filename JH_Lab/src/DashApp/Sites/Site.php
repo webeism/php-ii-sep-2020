@@ -5,9 +5,19 @@
  */
 
 namespace DashApp\Sites;
+use DashApp\Core\CustomException;
+
+
 
 abstract class Site implements \DashApp\Core\FlySite{
 
+    use \DashApp\Core\CustomTrait1, \DashApp\Core\CustomTrait2{
+        \DashApp\Core\CustomTrait1::getTraitType insteadof \DashApp\Core\CustomTrait2;
+        \DashApp\Core\CustomTrait2::setTraitTest as protected;
+    }
+
+    public const EXCEPTION_FLAG_STANDARD = 'error-flag-standard';
+    public const EXCEPTION_FLAG_CUSTOM = 'error-flag-custom';
     public const TABLE = 'sites';
     protected $id;
     protected $name;
@@ -16,12 +26,17 @@ abstract class Site implements \DashApp\Core\FlySite{
     
     // magic function 
     public function __construct( $id = 1 ){
+        $this->traitType = $this->getTraitType();
         if( $id === 1 ){
             $this->id = $id;
             // DB lookup resulting in...
             $this->name = "Some site name";
             $this->flyIndex = 85;
             $this->notes = "Some recent notes about the site";
+        }elseif( $id == self::EXCEPTION_FLAG_CUSTOM ){
+            throw new CustomException( "Custom Error Flag passed to object constructor" );
+        }elseif( $id == self::EXCEPTION_FLAG_STANDARD ){
+            throw new \Exception( "Standard Error Flag passed to object constructor" );
         }
     }
 

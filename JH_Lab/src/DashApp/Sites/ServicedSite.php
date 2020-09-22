@@ -13,9 +13,8 @@ class ServicedSite extends Site{
 
     // magic function 
     public function __construct( $id = 1 ){
-        if( $id === 1 ){
-            parent::__construct(1);
-        }
+
+        parent::__construct( $id );
         $this->intPlugins = 5;
         $this->servicePlan = "entry";
     }
