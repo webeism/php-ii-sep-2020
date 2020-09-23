@@ -1,5 +1,28 @@
 # PHP II -- Class Notes -- Sep 2020
 
+## TODO
+* Does Laravel use Doctrine?
+  * Not natively, but there's a bridge: https://packagist.org/packages/laravel-doctrine/orm
+* Software Design Patterns
+  * Original work from 1994: [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/s?k=Design+Patterns%3A+Elements+of+Reusable+Object-Oriented+Software&ref=nb_sb_noss_2)
+  * Martin Fowler (2002): [Patterns of Enterprise Application Architecture](https://martinfowler.com/books/eaa.html)
+* Reference to the Domain Model
+* What about if traits share property names?
+  * I need to do a lot more work on this stuff!
+  * But if you have 2 traits, each with properties of the same name, and a class uses both traits, I was getting conflict error messages
+
+* Add notes on updating phpMyAdmin for PHP 7.4.8
+  * Update list from `apt` sources:
+```
+sudo apt update
+```
+  * Take a snapshot of the VM (`Machine::Take Snapshot`)
+  * Either wait for the `Software Updater` GUI to kick in, or
+```
+sudo apt upgrade -y
+```
+  * Upgrade from the command line (takes an hour or so)
+
 ## Homework
 * For Wed 23 Sep 2020
   * Lab: Build Custom Exception Class
@@ -16,19 +39,9 @@
   * Lab: Magic Methods
 * For Wed 16 Sep 2020
   * Lab: Namespace
-## TODO
-* Add notes on updating phpMyAdmin for PHP 7.4.8
-  * Update list from `apt` sources:
-```
-sudo apt update
-```
-  * Take a snapshot of the VM (`Machine::Take Snapshot`)
-  * Either wait for the `Software Updater` GUI to kick in, or
-```
-sudo apt upgrade -y
-```
-  * Upgrade from the command line (takes an hour or so)
-
+## Misc
+* https://packagist.org/
+* To get PDO DSN syntax per driver: https://www.php.net/manual/en/pdo.drivers.php
 ## OOP
 ### Polymorphism / Variance, etc.
 * https://wiki.php.net/rfc/covariant-returns-and-contravariant-parameters
