@@ -1,6 +1,8 @@
 # PHP II -- Class Notes -- Sep 2020
 
 ## TODO
+* Q: Is there a new way to re-use PDO database query iterations once exhausted? (PHP 7.4?)
+* A: 
 * Does Laravel use Doctrine?
   * Not natively, but there's a bridge: https://packagist.org/packages/laravel-doctrine/orm
 * Software Design Patterns
