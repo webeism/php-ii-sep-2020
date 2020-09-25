@@ -26,6 +26,10 @@ sudo apt upgrade -y
   * Upgrade from the command line (takes an hour or so)
 
 ## Homework
+* For Mon 28 Sep 2020
+  * Lab: Prepared Statements
+  * Lab: Stored Procedure
+  * Lab: Transaction
 * For Wed 23 Sep 2020
   * Lab: Build Custom Exception Class
   * Lab: Traits
