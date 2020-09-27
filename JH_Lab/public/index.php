@@ -202,3 +202,184 @@ echo '<pre>' . print_r( $site, true ) . '</pre>';
 echo 'getTraitType: ' . $site->getTraitType();
 
 
+/**
+ * Session 6 | Lab 1
+ * Lab: Prepared Statements
+ * 1. Create a prepared statement script.
+ * 2. Add a try/catch construct.
+ * 3. Add a new customer record binding the customer parameters.
+ */ 
+
+echo "<h3>Session 6 | Lab 1 | Prepared Statements:</h3>";
+echo "<h4>Adding to customers via prepared statement</h4>";
+
+
+try {
+	// Get the connection instance
+	$pdo = new PDO('mysql:host=localhost;dbname=phpcourse','vagrant','vagrant');
+	
+	// Set error mode attribute
+	$pdo->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	
+	// Setup a one-off SQL statement and get a statement object
+	$stmt = $pdo->prepare( 'INSERT INTO customers (firstname,lastname)
+	VALUES (?,?)' );
+	
+	// Hard coded input parameters
+	$fname = 'Ken';
+	$lname = 'Barlow_' . time();
+	
+	// Parameter bindings
+	// The second parameter is referenced so must be an identifier
+	$stmt->bindParam(1, $fname);
+	$stmt->bindParam(2, $lname);
+	
+	// Execute the SQL statement
+	$stmt->execute();
+
+	// Select all
+	$stmt = $pdo->query( 'SELECT * FROM customers');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+	//var_dump($stmt);
+	foreach( $stmt as $item ){
+		echo '<pre>' . print_r( $item, true) . '</pre>';
+	
+	}
+	echo 'Deleting id > 5 ...';
+
+	$stmt = $pdo->prepare( 'DELETE FROM customers WHERE id > 5');
+	$stmt->execute();
+
+} catch (PDOException $e){
+
+	//Handle error
+	echo 'ERR: ' . $e;
+
+} catch (Throwable $e){
+	
+	//Handle error
+	echo 'ERR: ' . $e;
+}
+
+/**
+ * Session 6 | Lab 2
+ * Lab: Stored Procedure
+ * 1. Create a stored procedure script.
+ * 2. Add the SQL to the database.
+ * 3. Call the stored procedure with parameters.
+ */ 
+
+echo "<h3>Session 6 | Lab 2 | Stored Procedure</h3>";
+echo "<h4>Stored procedure newCustomer</h4>";
+
+$str = 'DROP PROCEDURE IF EXISTS phpcourse.newCustomer; ';
+//$str .= 'DELIMITER $ ';
+$str .=  'CREATE PROCEDURE phpcourse.newCustomer(';
+$str .=  'p_firstname varchar(50),';
+$str .=  'p_lastname varchar(50)) ';
+$str .=  'BEGIN ';
+$str .=  'insert into customers (firstname, lastname) values (p_firstname,p_lastname); ';
+//$str .=  '-- other statements ...';
+$str .=  'END; ';
+//$str .=  '$ ';
+//$str .=  'DELIMITER ;';
+
+try {
+	// Get the connection instance
+	$pdo = new PDO('mysql:host=localhost;dbname=phpcourse','vagrant','vagrant');
+	
+	// Set error mode attribute
+	$pdo->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	echo 'About to add stored procedure:<br />';
+	echo '<pre>' . print_r( explode(';', $str ), true) . '</pre>';
+
+	// Add the stored procedure
+	$stmt = $pdo->prepare($str);
+		echo '<pre>' . print_r( $stmt, true) . '</pre>';
+
+    $stmt->execute();
+
+	
+	echo 'Stored Procedure should now be added<br />';
+	$stmt = $pdo->prepare("SHOW PROCEDURE STATUS LIKE '%customer%';");
+echo '<pre>' . print_r( $stmt, true) . '</pre>';
+$stmt->execute();
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		while ($item = $stmt->fetch()) var_dump($item);	
+	
+	// Call the stored procedure
+	$stmt = $pdo->prepare('CALL newCustomer(:first,:last)');
+	$stmt->execute(['first' => 'Kenneth', 'last' => 'Barlow_' . time()]);
+
+	// Show Customers again
+	$stmt = $pdo->query('SELECT * FROM customers');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	while ($item = $stmt->fetch()) var_dump($item);	
+	
+
+} catch (PDOException $e){
+
+	//Handle error
+	echo 'ERR: ' . $e;
+
+} catch (Throwable $e){
+	
+	//Handle error
+	echo 'ERR: ' . $e;
+}
+
+
+/**
+ * Session 6 | Lab 3
+ * Lab: Transaction
+ * 1. Create a transaction script.
+ * 2. Execute two SQL statements.
+ * 3. Handle any exceptions.
+ */ 
+
+echo "<h3>Session 6: Transaction</h3>";
+
+try {
+	// Get the connection instance
+	$pdo = new PDO('mysql:host=localhost;dbname=phpcourse','vagrant','vagrant');
+	
+	// Set error mode attribute
+	$pdo->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	
+	// Begin the transaction
+	$pdo->beginTransaction();
+
+	// Series of SQL statements, all of which have to succeed
+	// Call the stored procedure
+	$stmt = $pdo->prepare('CALL newCustomer(:first,:last)');
+	$stmt->execute(['first' => 'Jesus', 'last' => 'Christ_' . time()]);
+
+	$stmt = $pdo->prepare('CALL newCustomer(:first,:last)');
+	$stmt->execute(['first' => 'J', 'last' => 'H_' . time()]);
+
+	// Commit success
+	$pdo->commit();
+
+} catch (PDOException $e){
+
+	//Handle error
+	echo 'ERR: ' . $e;
+	$pdo->rollBack(); // Rollback in case of failure
+
+
+} catch (Throwable $e){
+	
+	//Handle error
+	echo 'ERR: ' . $e;
+} finally{
+	// Show Customers again
+	
+	echo 'Finally...';
+	
+	$stmt = $pdo->query('SELECT * FROM customers');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		while ($item = $stmt->fetch()) var_dump($item);	
+}
+	
