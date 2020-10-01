@@ -1,8 +1,36 @@
 # PHP II -- Class Notes -- Sep 2020
 
+## Homework
+* For Wed 30 Sep 2020
+  * Lab: Validate an Email Address
+* For Mon 28 Sep 2020
+  * Lab: Prepared Statements
+  * Lab: Stored Procedure
+  * Lab: Transaction
+* For Wed 23 Sep 2020
+  * Lab: Build Custom Exception Class
+  * Lab: Traits
+  * Have a look through the OrderApp using chapter 3 as a guideline
+* For Mon 21 Sep 2020
+  * Lab: Abstract Classes
+  * Lab: Interfaces
+	* Examples from the Laminas framework: https://github.com/laminas/laminas-db/tree/master/src/Adapter
+  * Lab: Type Hinting
+* For Fri 18 Sep 2020
+  * Lab: Create a Class
+  * Lab: Create an Extensible Super Class
+  * Lab: Magic Methods
+* For Wed 16 Sep 2020
+  * Lab: Namespace
+
 ## TODO
 * Q: Is there a new way to re-use PDO database query iterations once exhausted? (PHP 7.4?)
 * A: 
+* Q: Can you send database meta commands via the PDO driver?  (e.g. 'help' or 'delimiter')
+* A:
+* Q: Can any character be used as a regex delimiter?
+* A: Delimiter must not be alphanumeric or backslash, otherwise ...
+
 * Does Laravel use Doctrine?
   * Not natively, but there's a bridge: https://packagist.org/packages/laravel-doctrine/orm
 * Software Design Patterns
@@ -25,26 +53,6 @@ sudo apt upgrade -y
 ```
   * Upgrade from the command line (takes an hour or so)
 
-## Homework
-* For Mon 28 Sep 2020
-  * Lab: Prepared Statements
-  * Lab: Stored Procedure
-  * Lab: Transaction
-* For Wed 23 Sep 2020
-  * Lab: Build Custom Exception Class
-  * Lab: Traits
-  * Have a look through the OrderApp using chapter 3 as a guideline
-* For Mon 21 Sep 2020
-  * Lab: Abstract Classes
-  * Lab: Interfaces
-	* Examples from the Laminas framework: https://github.com/laminas/laminas-db/tree/master/src/Adapter
-  * Lab: Type Hinting
-* For Fri 18 Sep 2020
-  * Lab: Create a Class
-  * Lab: Create an Extensible Super Class
-  * Lab: Magic Methods
-* For Wed 16 Sep 2020
-  * Lab: Namespace
 ## Misc
 * https://packagist.org/
 * To get PDO DSN syntax per driver: https://www.php.net/manual/en/pdo.drivers.php
@@ -141,3 +149,22 @@ namespace {
 	var_dump($test->getObj());
 }
 ```
+* Prepare/Execute Lab
+```
+$id = 5;
+$stmt = $pdo->prepare( 'DELETE FROM customers WHERE id > ?');
+$stmt->execute([$id]);
+```
+* Another example
+```
+// Call the stored procedure
+$stmt = $pdo->prepare('CALL newCustomer(:first,:last)');
+$stmt->execute(['first' => 'Jesus', 'last' => 'Christ_' . time()]);
+$stmt->execute(['first' => 'J', 'last' => 'H_' . time()]);
+```
+
+
+## ERRATA
+* Regex:Metacharacters:Positioning
+  * Absolute end s/be `\Z`
+ 
