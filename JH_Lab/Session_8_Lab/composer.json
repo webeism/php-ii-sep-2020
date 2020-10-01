@@ -1,0 +1,12 @@
+{
+ "name": "Test Application",
+ "description": "Test application",
+ "keywords": [
+  "Test App"
+ ],
+ "require": {
+  "php": ">=5.5",
+  "guzzlehttp/guzzle": "~6.0"
+ }
+}
+
