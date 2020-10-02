@@ -1,6 +1,10 @@
 # PHP II -- Class Notes -- Sep 2020
 
 ## Homework
+* For Fri 02 Oct 2020
+  * Lab: Composer with OrderApp
+  * Lab: REST
+  * Lab: Custom Wrapper
 * For Wed 30 Sep 2020
   * Lab: Validate an Email Address
 * For Mon 28 Sep 2020
@@ -24,8 +28,19 @@
   * Lab: Namespace
 
 ## TODO
-* Q: Is there a new way to re-use PDO database query iterations once exhausted? (PHP 7.4?)
+* Q: Solid statistics on REST vs. XML-based
+* A: https://www.ateam-oracle.com/performance-study-rest-vs-soap-for-mobile-applications
+* Q: Has xml "progressed" beyond version = "1.0" ? That's all I ever see (actually I think I've seen 1.1)
+* A: 1.1 is the current version; 2.0 is in committee
+* Q: Can you have multi-byte chars in an email address?
 * A: 
+* Q: With UTF-8 multi-byte strings, can you specify a range of multi-byte chars?
+* A: 
+* Q: Is there a new way to re-use PDO database query iterations once exhausted? (PHP 7.4?)
+* A: You can create a connection using `PDO::CURSOR_SCROLL` that allows the iteration to go forward or reverse
+	* Drags down performance
+	* Default is `PDO::CURSOR_FWDONLY`
+	* TODO: rework example in `Examples_Day_6/pdo_with_opts.php`
 * Q: Can you send database meta commands via the PDO driver?  (e.g. 'help' or 'delimiter')
 * A:
 * Q: Can any character be used as a regex delimiter?
@@ -162,9 +177,18 @@ $stmt = $pdo->prepare('CALL newCustomer(:first,:last)');
 $stmt->execute(['first' => 'Jesus', 'last' => 'Christ_' . time()]);
 $stmt->execute(['first' => 'J', 'last' => 'H_' . time()]);
 ```
-
+## Streams
+* Custom Wrapper
+  * See: https://www.php.net/manual/en/class.streamwrapper.php
 
 ## ERRATA
 * Regex:Metacharacters:Positioning
   * Absolute end s/be `\Z`
- 
+* file_get_contents() REST Request
+```
+<?php
+// Make a request for JSON	
+$url = 'https://api.unlikelysource.com/api?city=Rochester&country=US';
+$response = file_get_contents($url);
+var_dump(json_decode($response));
+``` 
