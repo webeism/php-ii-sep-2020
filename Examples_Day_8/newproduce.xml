@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<produce xmlns:ea="test">
+    <vegetables>
+        <vegetable unit="pound">
+            <name> tomatoes </name>
+            <price> 2.99 </price>
+        </vegetable>
+        <vegetable unit="kilo">
+            <name> cucumber </name>
+            <price> 1.20 </price>
+        </vegetable>
+    </vegetables>
+    <fruits>
+		<fruit unit="box">
+			<name> strawberries </name>
+			<price> 0.60 </price>
+		</fruit>
+    </fruits>
+</produce>
