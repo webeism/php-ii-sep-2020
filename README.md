@@ -30,19 +30,26 @@
 ## TODO
 * Q: Solid statistics on REST vs. XML-based
 * A: https://www.ateam-oracle.com/performance-study-rest-vs-soap-for-mobile-applications
+
 * Q: Has xml "progressed" beyond version = "1.0" ? That's all I ever see (actually I think I've seen 1.1)
 * A: 1.1 is the current version; 2.0 is in committee
+
 * Q: Can you have multi-byte chars in an email address?
-* A: 
+* A: Yes
+  * See: [RFC 6532](https://tools.ietf.org/html/rfc6532)
+
 * Q: With UTF-8 multi-byte strings, can you specify a range of multi-byte chars?
-* A: 
+* A: Yes: see `Examples_Day_7/regex_utf_8_range.php`
+
 * Q: Is there a new way to re-use PDO database query iterations once exhausted? (PHP 7.4?)
 * A: You can create a connection using `PDO::CURSOR_SCROLL` that allows the iteration to go forward or reverse
 	* Drags down performance
 	* Default is `PDO::CURSOR_FWDONLY`
 	* TODO: rework example in `Examples_Day_6/pdo_with_opts.php`
+
 * Q: Can you send database meta commands via the PDO driver?  (e.g. 'help' or 'delimiter')
-* A:
+* A: Testing: `Examples_Day_6/pdo_send_meta_commands.php`
+
 * Q: Can any character be used as a regex delimiter?
 * A: Delimiter must not be alphanumeric or backslash, otherwise ...
 
