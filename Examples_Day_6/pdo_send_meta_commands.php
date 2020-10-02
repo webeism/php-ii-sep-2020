@@ -1,13 +1,24 @@
 <?php
+function runQuery($pdo, $sql)
+{
+	$stmt = $pdo->query($sql);
+	$stmt->setFetchMode(PDO::FETCH_OBJ);
+	return $stmt->fetchAll();
+}
 $dsn = 'mysql:dbname=phpcourse;host=localhost';
 $usr = 'vagrant';
 $pwd = 'vagrant';
+$test = [
+	'SHOW TABLES',
+	'SHOW CREATE TABLE customers',
+	'HELP',
+];
 try {
 	$pdo = new PDO($dsn, $usr, $pwd);
-	// returns an interation of Test instances
-	$stmt = $pdo->query('SHOW TABLES;');
-	$stmt->setFetchMode(PDO::FETCH_OBJ);
-	foreach ($stmt as $item) var_dump($item);
+	foreach ($test as $sql) {
+		echo "\n$sql\n";
+		var_dump(runQuery($pdo, $sql));
+	}
 } catch (Throwable $t) {
 	echo $t;
 }
